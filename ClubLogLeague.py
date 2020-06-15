@@ -96,8 +96,6 @@ def request_league(
     arguments = f'mode={mode.value}&qsl={qsl.value}&date={date.value}&club={club}&deleted={deleted.value}'
     url = f'https://clublog.org/league_api.php?{arguments}'
 
-    print(f'URL={url}')
-
     # Request the data from the server
     response = urllib.request.urlopen(url, timeout=15)
 
@@ -204,7 +202,7 @@ def create_cli():
     parser = argparse.ArgumentParser(description='Request DXCC league table from ClubLog.org')
 
     parser.add_argument('-o', '--csv_file', metavar='PATH', type=str, default='./league.csv',
-                        help='the path to write the CSV file to (defaults to `./league.csv`')
+                        help='the path to write the CSV file to (defaults to `./league.csv`)')
 
     # noinspection PyTypeChecker
     parser.add_argument('-m', '--mode', type=Mode.argtype, choices=Mode, default=Mode.All, help='filter by mode')
@@ -238,5 +236,4 @@ def _main(mode: Mode, qsl: QSL, date: Date, club: int, deleted: Deleted, exclude
 
 if __name__ == '__main__':
     ARGS = create_cli().parse_args()
-    print(ARGS)
     _main(ARGS.mode, ARGS.qsl, ARGS.date, ARGS.club, ARGS.deleted, ARGS.exclude, ARGS.csv_file)
